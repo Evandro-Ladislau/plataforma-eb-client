@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+
+  client-database:
+    image: postgres
+    container_name: client-database
+    ports:
+      - "5440:5432"
+    environment:
+      - POSTGRES_USER=client
+      - POSTGRES_PASSWORD=client
+      - POSTGRES_DB=client-service
+    volumes:
+      - ./configs/migrations/:/docker-entrypoint-initdb.d/
+      - client_database_vol:/var/lib/postgresql/data
+
+volumes:
+  client_database_vol: {}
