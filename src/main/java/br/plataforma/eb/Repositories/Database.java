@@ -20,11 +20,11 @@ public class Database {
         try{
             if (conn == null){
                 conn = DriverManager.getConnection(url, user, password);
-                logger.info("Conexão estabelecida com o banco de dados.");
+                logger.info("Connection established with the database.");
             }
             return conn;
         } catch (SQLException e){
-            logger.error("Erro ao conectar com o banco de dados: ", e);
+            logger.error("Error connecting to the database: ", e);
             return null;
         }
     }
