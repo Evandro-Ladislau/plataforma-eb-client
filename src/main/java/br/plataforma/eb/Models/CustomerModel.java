@@ -4,6 +4,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import de.huxhorn.sulky.ulid.ULID;
 
 public class CustomerModel {
     @Getter
@@ -20,21 +21,23 @@ public class CustomerModel {
     private LocalDateTime createdAt;
     @Getter
     private LocalDateTime updateAt;
+    @Getter
+    private Boolean isActive;
 
-    public CustomerModel(String id, String name, String surname, String email, LocalDateTime birthDate){
-        setId(id);
+    public CustomerModel(String name, String surname, String email, LocalDateTime birthDate){
+        this.id = generateULID();
         setName(name);
         setSurname(surname);
         setEmail(email);
         setBirthDate(birthDate);
         this.createdAt = LocalDateTime.now();
         this.updateAt = this.createdAt;
+        this.isActive = Boolean.TRUE;
     }
 
-    public void setId(String id){
-        if(id != null && !id.isEmpty()){
-            this.id = id;
-        }
+    private String generateULID() {
+        ULID ulid = new ULID();
+        return ulid.nextULID();
     }
 
     public void setName(String name){
