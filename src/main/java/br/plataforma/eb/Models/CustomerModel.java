@@ -4,6 +4,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import de.huxhorn.sulky.ulid.ULID;
 
 public class CustomerModel {
     @Getter
@@ -15,26 +16,28 @@ public class CustomerModel {
     @Getter
     private String email;
     @Getter
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     @Getter
     private LocalDateTime createdAt;
     @Getter
     private LocalDateTime updateAt;
+    @Getter
+    private Boolean isActive;
 
-    public CustomerModel(String id, String name, String surname, String email, LocalDateTime birthDate){
-        setId(id);
+    public CustomerModel(String name, String surname, String email, LocalDate birthDate){
+        this.id = new ULID().nextULID();
         setName(name);
         setSurname(surname);
         setEmail(email);
         setBirthDate(birthDate);
         this.createdAt = LocalDateTime.now();
         this.updateAt = this.createdAt;
+        this.isActive = Boolean.TRUE;
     }
 
-    public void setId(String id){
-        if(id != null && !id.isEmpty()){
-            this.id = id;
-        }
+    private String generateULID() {
+        ULID ulid = new ULID();
+        return ulid.nextULID();
     }
 
     public void setName(String name){
@@ -55,8 +58,8 @@ public class CustomerModel {
         }
     }
 
-    public void setBirthDate(LocalDateTime birthDate){
-        int age = Period.between(birthDate.toLocalDate(), LocalDate.now()).getYears();
+    public void setBirthDate(LocalDate birthDate){
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
         if (age > 18){
             this.birthDate = birthDate;
         }
