@@ -16,7 +16,7 @@ public class CustomerModel {
     @Getter
     private String email;
     @Getter
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     @Getter
     private LocalDateTime createdAt;
     @Getter
@@ -24,8 +24,8 @@ public class CustomerModel {
     @Getter
     private Boolean isActive;
 
-    public CustomerModel(String name, String surname, String email, LocalDateTime birthDate){
-        this.id = generateULID();
+    public CustomerModel(String name, String surname, String email, LocalDate birthDate){
+        this.id = new ULID().nextULID();
         setName(name);
         setSurname(surname);
         setEmail(email);
@@ -58,8 +58,8 @@ public class CustomerModel {
         }
     }
 
-    public void setBirthDate(LocalDateTime birthDate){
-        int age = Period.between(birthDate.toLocalDate(), LocalDate.now()).getYears();
+    public void setBirthDate(LocalDate birthDate){
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
         if (age > 18){
             this.birthDate = birthDate;
         }
