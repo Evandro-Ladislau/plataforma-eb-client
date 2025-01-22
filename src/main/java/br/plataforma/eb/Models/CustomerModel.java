@@ -24,6 +24,10 @@ public class CustomerModel {
     @Getter
     private Boolean isActive;
 
+    public CustomerModel(){
+
+    }
+
     public CustomerModel(String name, String surname, String email, LocalDate birthDate){
         this.id = new ULID().nextULID();
         setName(name);

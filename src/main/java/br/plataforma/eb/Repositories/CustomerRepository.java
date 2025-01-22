@@ -11,8 +11,8 @@ public class CustomerRepository {
     private Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
 
     public CustomerModel insert(CustomerModel customerModel) throws SQLException {
-        String sql = "INSERT INTO clients (id, name, surname, email, birthdate, created_at, is_active) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO clients (id, name, surname, email, birthdate, created_at, updated_at, is_active) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = conn.prepareStatement(sql)){
             statement.setString(1, customerModel.getId());
             statement.setString(2, customerModel.getName());
@@ -20,7 +20,8 @@ public class CustomerRepository {
             statement.setString(4, customerModel.getEmail());
             statement.setDate(5, Date.valueOf(customerModel.getBirthDate()));
             statement.setTimestamp(6, Timestamp.valueOf(customerModel.getCreatedAt()));
-            statement.setBoolean(7, customerModel.getIsActive());
+            statement.setTimestamp(7, Timestamp.valueOf(customerModel.getUpdateAt()));
+            statement.setBoolean(8, customerModel.getIsActive());
 
             logger.info("Inserting customer into the database");
             statement.executeUpdate();

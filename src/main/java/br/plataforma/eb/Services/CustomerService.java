@@ -16,6 +16,7 @@ public class CustomerService {
 
         try {
             logger.info("Calling the repository layer");
+            System.out.println("Model: " + customer.getId() + " " + customer.getName() + " " + customer.getBirthDate() + " " + customer.getEmail() + " " + customer.getCreatedAt());
             return customerRepository.insert(customer);
         }catch (SQLException e){
             logger.error("Failed to insert customer: {} {}",e.getClass().getSimpleName(), e.getMessage());
