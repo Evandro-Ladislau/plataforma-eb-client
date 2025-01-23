@@ -1,11 +1,17 @@
 package br.plataforma.eb.Models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import de.huxhorn.sulky.ulid.ULID;
+import lombok.ToString;
 
+@Getter
+@ToString
 public class CustomerModel {
     @Getter
     private String id;
@@ -16,19 +22,19 @@ public class CustomerModel {
     @Getter
     private String email;
     @Getter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @Getter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
     @Getter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateAt;
     @Getter
     private Boolean isActive;
 
-    public CustomerModel(){
-
-    }
-
-    public CustomerModel(String name, String surname, String email, LocalDate birthDate){
+    @JsonCreator
+    public CustomerModel(@JsonProperty("name") String name,  @JsonProperty("surname") String surname, @JsonProperty("email") String email,  @JsonProperty("birthDate")  LocalDate birthDate){
         this.id = new ULID().nextULID();
         setName(name);
         setSurname(surname);
@@ -68,4 +74,5 @@ public class CustomerModel {
             this.birthDate = birthDate;
         }
     }
+
 }

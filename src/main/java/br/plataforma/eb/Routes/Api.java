@@ -26,12 +26,10 @@ public class Api {
     }
 
     public void insert(){
-        logger.info("Calling endpoint insert");
-
         app.post("/insert", ctx -> {
             try {
-                var customer = ctx.bodyAsClass(CustomerModel.class);
-                CustomerModel customerModel = new CustomerModel(customer.getName(), customer.getSurname(), customer.getEmail(), customer.getBirthDate());
+                logger.info("Calling endpoint insert");
+                var customerModel = ctx.bodyAsClass(CustomerModel.class);
                 customerService.insert(customerModel);
 
                 ctx.status(HttpStatus.CREATED);
