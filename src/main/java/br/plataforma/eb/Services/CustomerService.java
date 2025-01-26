@@ -5,6 +5,8 @@ import br.plataforma.eb.Repositories.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerService {
 
@@ -16,8 +18,20 @@ public class CustomerService {
         try {
             logger.info("Calling the repository layer with customer data: {}", customer);
             return customerRepository.insert(customer);
-        }catch (SQLException e){
+        } catch (SQLException e){
             logger.error("Failed to insert customer: {} {}",e.getClass().getSimpleName(), e.getMessage());
+            throw e;
+        }
+    }
+
+    public ArrayList<CustomerModel> getAll() throws SQLException {
+        ArrayList<CustomerModel> customerModels = new ArrayList<>();
+
+        try{
+            logger.info("Calling the repository layer for get all customer");
+            return customerRepository.getAll();
+        } catch (SQLException e){
+            logger.error("Failed to get all customer: {} {}", e.getClass().getSimpleName(), e.getMessage());
             throw e;
         }
     }

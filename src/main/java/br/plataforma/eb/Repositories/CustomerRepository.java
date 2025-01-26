@@ -1,10 +1,12 @@
 package br.plataforma.eb.Repositories;
 
 import br.plataforma.eb.Models.CustomerModel;
+import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class CustomerRepository {
     private Connection conn = Database.getConnection();
@@ -31,5 +33,29 @@ public class CustomerRepository {
             throw e;
         }
         return customerModel;
+    }
+
+    public ArrayList<CustomerModel> getAll() throws SQLException {
+        ArrayList<CustomerModel> customers = new ArrayList<>();
+
+        String sql = "SELECT * FROM clients";
+        try(Statement stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql)){
+
+            while (resultSet.next()){
+                CustomerModel customer = new CustomerModel(resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("surname"),
+                        resultSet.getString("email"),
+                        resultSet.getDate("birthDate").toLocalDate(),
+                        resultSet.getBoolean("is_active")
+                );
+                customers.add(customer);
+            }
+        } catch (SQLException e){
+            logger.error("Error when get all customer in database {} {}", e.getClass().getSimpleName(), e.getMessage());
+            throw e;
+        }
+        return customers;
     }
 }

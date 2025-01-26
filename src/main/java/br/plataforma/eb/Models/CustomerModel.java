@@ -45,6 +45,16 @@ public class CustomerModel {
         this.isActive = Boolean.TRUE;
     }
 
+    @JsonCreator
+    public CustomerModel(String id, @JsonProperty("name") String name,  @JsonProperty("surname") String surname, @JsonProperty("email") String email,  @JsonProperty("birthDate")  LocalDate birthDate, boolean isActive){
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.isActive = isActive;
+    }
+
     private String generateULID() {
         ULID ulid = new ULID();
         return ulid.nextULID();
