@@ -33,6 +33,8 @@ public class CustomerModel {
     @Getter
     private Boolean isActive;
 
+
+    //#TODO: alterar a anotação para a desserialização para ser feita diretamente nos atributos da classe, ao invés de anotar o construtor.;
     @JsonCreator
     public CustomerModel(@JsonProperty("name") String name,  @JsonProperty("surname") String surname, @JsonProperty("email") String email,  @JsonProperty("birthDate")  LocalDate birthDate){
         this.id = new ULID().nextULID();
@@ -45,11 +47,6 @@ public class CustomerModel {
         this.isActive = Boolean.TRUE;
     }
 
-    private String generateULID() {
-        ULID ulid = new ULID();
-        return ulid.nextULID();
-    }
-
     public void setName(String name){
         if(name != null && !name.isEmpty()){
             this.name = name;
@@ -58,7 +55,6 @@ public class CustomerModel {
 
     public void setSurname(String surname){
         if(surname != null && !surname.isEmpty()){
-            this.surname = surname;
         }
     }
 
