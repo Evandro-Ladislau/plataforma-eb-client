@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import de.huxhorn.sulky.ulid.ULID;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -24,15 +25,19 @@ public class CustomerModel {
     @Getter
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+    @Setter
     @Getter
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+    @Setter
     @Getter
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateAt;
     @Getter
+    @Setter
     private Boolean isActive;
 
+    //#TODO: alterar a anotação para a desserialização para ser feita diretamente nos atributos da classe, ao invés de anotar o construtor.;
     @JsonCreator
     public CustomerModel(@JsonProperty("name") String name,  @JsonProperty("surname") String surname, @JsonProperty("email") String email,  @JsonProperty("birthDate")  LocalDate birthDate){
         this.id = new ULID().nextULID();
@@ -43,21 +48,6 @@ public class CustomerModel {
         this.createdAt = LocalDateTime.now();
         this.updateAt = this.createdAt;
         this.isActive = Boolean.TRUE;
-    }
-
-    @JsonCreator
-    public CustomerModel(String id, @JsonProperty("name") String name,  @JsonProperty("surname") String surname, @JsonProperty("email") String email,  @JsonProperty("birthDate")  LocalDate birthDate, boolean isActive){
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.isActive = isActive;
-    }
-
-    private String generateULID() {
-        ULID ulid = new ULID();
-        return ulid.nextULID();
     }
 
     public void setName(String name){
