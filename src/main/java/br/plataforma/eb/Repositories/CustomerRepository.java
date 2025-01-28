@@ -38,20 +38,20 @@ public class CustomerRepository {
     public ArrayList<CustomerModel> getAll() throws SQLException {
         ArrayList<CustomerModel> customers = new ArrayList<>();
 
-        String sql = "SELECT name, surname, email, birthDate, created_at, updated_at, is_active FROM clients";
+        String sql = "SELECT id, name, surname, email, birthDate, created_at, updated_at, is_active FROM clients";
         try(Statement stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql)){
             while (resultSet.next()){
                 CustomerModel customer = new CustomerModel(
+                        resultSet.getString("id"),
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("email"),
-                        resultSet.getDate("birthDate").toLocalDate()
+                        resultSet.getDate("birthDate").toLocalDate(),
+                        resultSet.getTimestamp("created_at").toLocalDateTime(),
+                        resultSet.getTimestamp("updated_at").toLocalDateTime(),
+                        resultSet.getBoolean("is_active")
                 );
-
-                customer.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
-                customer.setUpdateAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
-                customer.setIsActive(resultSet.getBoolean("is_active"));
 
                 customers.add(customer);
             }

@@ -24,8 +24,6 @@ public class CustomerService {
     }
 
     public ArrayList<CustomerModel> getAll() throws SQLException {
-        ArrayList<CustomerModel> customerModels = new ArrayList<>();
-
         try{
             logger.info("Calling the repository layer for get all customer");
             return customerRepository.getAll();
