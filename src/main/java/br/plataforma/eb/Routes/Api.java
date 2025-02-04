@@ -41,6 +41,22 @@ public class Api {
             }
         });
     }
+
+    public void getAll(){
+        app.get("/customer", ctx ->{
+            try{
+                logger.info("Calling endpoint get all");
+                var customers = customerService.getAll();
+
+                ctx.status(HttpStatus.OK);
+                ctx.json(customers);
+            }catch (Exception e){
+                logger.error("Error when searching customer list. Details: {} {}", e.getClass().getSimpleName(), e.getMessage());
+                ctx.status(HttpStatus.INTERNAL_SERVER_ERROR);
+                ctx.result("An unexpected error occurred while getting the customer list.");
+            }
+        });
+    }
 }
 
 
