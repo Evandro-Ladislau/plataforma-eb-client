@@ -14,8 +14,8 @@ public class Api {
     private Logger logger = LoggerFactory.getLogger(Api.class);
     private CustomerService customerService;
 
-    public Api(){
-        this.customerService = new CustomerService();
+    public Api(CustomerService customerService){
+        this.customerService = customerService;
     }
 
     public Javalin appStart(){
