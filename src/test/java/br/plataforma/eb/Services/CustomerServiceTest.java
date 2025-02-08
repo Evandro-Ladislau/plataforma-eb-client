@@ -2,18 +2,37 @@ package br.plataforma.eb.Services;
 
 import br.plataforma.eb.Models.CustomerModel;
 import br.plataforma.eb.Repositories.CustomerRepository;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
-@ExtendWith(MockitoExtension.class)
- class CustomerServiceTest {
+import static org.junit.Assert.assertNotNull;
 
-    @InjectMocks
-    private CustomerModel customerModel;
+
+public class CustomerServiceTest {
+
+    CustomerRepository customerRepository;
+    CustomerService customerService;
+
+    @Before
+    public void setUp(){
+
+        customerRepository = Mockito.mock(CustomerRepository.class);
+        customerService  = new CustomerService(customerRepository);
+
+        assertNotNull(customerService);
+        assertNotNull(customerRepository);
+    }
 
     @Test
-    public void mustEnterACustomerRecord(){
+    public void mustEnterACustomerRecord() throws SQLException {
+        CustomerModel customerModel = new CustomerModel("Evandro", "Ladislau", "ev@gmail.com", LocalDate.now());
+
         customerService.insert(customerModel);
+        Mockito.verify(customerRepository).insert(customerModel);
+
+        System.out.println("Insertion test completed successfully!");
     }
 }
