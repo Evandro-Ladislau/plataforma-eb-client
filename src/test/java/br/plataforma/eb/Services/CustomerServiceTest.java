@@ -32,7 +32,14 @@ public class CustomerServiceTest {
 
         customerService.insert(customerModel);
         Mockito.verify(customerRepository).insert(customerModel);
+    }
 
-        System.out.println("Insertion test completed successfully!");
+    @Test(expected = SQLException.class)
+    public void mustThrowExceptionWhenRepositoryFails() throws SQLException {
+        CustomerModel customerModel = Mockito.mock(CustomerModel.class);
+        Mockito.when(customerRepository.insert(Mockito.any(CustomerModel.class)))
+                .thenThrow(new SQLException("Error saving to database"));
+
+        customerService.insert(customerModel);
     }
 }
