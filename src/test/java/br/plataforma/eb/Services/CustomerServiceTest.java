@@ -1,5 +1,6 @@
 package br.plataforma.eb.Services;
 
+import br.plataforma.eb.Interfaces.CustomerServiceInterface;
 import br.plataforma.eb.Models.CustomerModel;
 import br.plataforma.eb.Repositories.CustomerRepository;
 import org.junit.Before;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 public class CustomerServiceTest {
 
     CustomerRepository customerRepository;
-    CustomerService customerService;
+    CustomerServiceInterface customerService;
 
     @Before
     public void setUp(){
