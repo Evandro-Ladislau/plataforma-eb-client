@@ -9,8 +9,12 @@ import java.util.ArrayList;
 
 public class CustomerService {
 
-    private CustomerRepository customerRepository = new CustomerRepository();
+    private CustomerRepository customerRepository;
     private Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
+
+    public CustomerService(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
+    }
 
     public CustomerModel insert(CustomerModel customer) throws SQLException {
 
