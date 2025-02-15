@@ -1,5 +1,6 @@
 package br.plataforma.eb.Repositories;
 
+import br.plataforma.eb.Interfaces.CustomerRepositoryInterface;
 import br.plataforma.eb.Models.CustomerModel;
 import lombok.var;
 import org.slf4j.Logger;
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerRepository {
+public class CustomerRepository implements CustomerRepositoryInterface {
     private Connection conn = Database.getConnection();
     private Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
 

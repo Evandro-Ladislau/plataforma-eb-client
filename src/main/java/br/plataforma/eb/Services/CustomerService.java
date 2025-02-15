@@ -1,5 +1,6 @@
 package br.plataforma.eb.Services;
 
+import br.plataforma.eb.Interfaces.CustomerServiceInterface;
 import br.plataforma.eb.Models.CustomerModel;
 import br.plataforma.eb.Repositories.CustomerRepository;
 import org.slf4j.Logger;
@@ -7,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CustomerService {
+public class CustomerService implements CustomerServiceInterface {
 
     private CustomerRepository customerRepository;
     private Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
